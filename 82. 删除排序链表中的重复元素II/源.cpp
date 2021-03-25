@@ -17,12 +17,33 @@ void Delete(ListNode* preNode, ListNode* currNode) {
     currNode = nullptr;
 }
 ListNode* deleteDuplicates(ListNode* head) {
-    if (head == nullptr) return nullptr;
-    ListNode* exHead = new ListNode();
-    exHead->next = head;
-    int targetVal;
-    ListNode* curr = head;
-    while(curr->next != nullptr && curr->next->next != nullptr)
+     if (head == nullptr) return nullptr;
+        ListNode* exHead = new ListNode(-200);
+        exHead->next = head;
+        vector<bool> record;
+        record.resize(201, false);
+        ListNode* curr, * pre;
+        curr = head;
+        pre = exHead;
+        while (curr != nullptr) {
+            if (curr->val == pre->val) 
+                record[curr->val + 100] = true;
+            pre = curr;
+            curr = curr->next;
+        }
+        curr = head;
+        pre = exHead;
+        while (curr != nullptr) {
+            if (record[curr->val + 100] == true) {
+                Delete(pre, curr);
+                curr = pre->next;
+            }
+            else {
+                pre = curr;
+                curr = pre->next;
+            }
+        }
+        return exHead->next;
 }
 
 int main() {
