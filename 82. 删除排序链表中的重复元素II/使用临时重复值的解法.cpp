@@ -25,11 +25,10 @@ ListNode* deleteDuplicates(ListNode* head) {
     while(curr->next != nullptr && curr->next->next != nullptr){
         if(curr->next->val == curr->next->next->val){
             tmpVal = curr->next->val;
-            for(curr = curr->next; curr->next->val != tmpVal; curr = curr->next){
-                Delete(curr->next, curr->next->next);
-                curr->next->next = 
-            }
+            while(curr->next != nullptr && curr->next->val == tmpVal)
+                Delete(curr, curr->next);
         }
+        else curr = curr->next;
     }
     return exHead->next;
 }
