@@ -10,23 +10,13 @@
  */
 class Solution {
 public:
-    void Delete(ListNode* prev, ListNode* curr){
-        prev->next = curr->next;
-        delete curr;
-        curr = nullptr;
-    }
     ListNode* deleteDuplicates(ListNode* head) {
-        ListNode* dummy = new ListNode(-200);
-        dummy->next = head;
-        for(ListNode* p = dummy, *q = p->next; q != nullptr;) {
-            if(p->val == q->val) {
-                Delete(p, q);
-                q=p->next;
-                continue;
-            }
-            p=p->next;
-            q=q->next;
+        if(head == nullptr) return nullptr;
+        for(ListNode* p = head; p->next != nullptr;) {
+            if(p->val == p->next->val)
+                p->next = p->next->next;
+            else p=p->next;
         }
-        return dummy->next;
+        return head;
     }
 };
